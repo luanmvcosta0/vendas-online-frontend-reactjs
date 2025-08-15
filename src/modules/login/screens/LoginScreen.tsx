@@ -1,3 +1,4 @@
+import { Input } from "antd";
 import { BackgroundImage, ContainerLogin, LimitedContainer, LogoImage } from "../styles/loginScreen.styles";
 
 const LoginScreen = () => {
@@ -8,6 +9,8 @@ const LoginScreen = () => {
         <ContainerLogin>
             <LimitedContainer>
                 <LogoImage src="public\logo.png" />
+                <Input title="Usuario" />
+                <Input title="Senha" />
             </LimitedContainer>
         </ContainerLogin>
     </div>
