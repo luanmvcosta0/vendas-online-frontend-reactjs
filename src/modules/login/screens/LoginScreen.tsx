@@ -1,8 +1,9 @@
 import axios from 'axios';
 import { useState } from "react";
 import Button from "../../../shared/buttons/button/button";
+import SVGLogo from '../../../shared/icons/SVGLogo';
 import Input from "../../../shared/inputs/input/input";
-import { BackgroundImage, ContainerLogin, ContainerLoginScreen, LimitedContainer, LogoImage, TitleLogin } from "../styleds/loginScreen.style";
+import { BackgroundImage, ContainerLogin, ContainerLoginScreen, LimitedContainer, TitleLogin } from "../styleds/loginScreen.style";
 
 const LoginScreen = () => {
     const [email, setEmail] = useState('');
@@ -17,7 +18,7 @@ const LoginScreen = () => {
     }
 
     const handleLogin = async () => {
-        const returnObject = await axios({
+        await axios({
             method: "post",
             url: "http://localhost:8080/auth",
             data: {
@@ -26,13 +27,12 @@ const LoginScreen = () => {
             },
         })
         .then((result) => {
-            return result;
+            alert(`Login efetuado com sucesso ${result.data.acessToken}`)
+            return result.data;
         })
         .catch(() => {
             alert('Usuário ou Senha inválida')
         })
-
-        alert(`Login efetuado com sucesso`)
     }
 
     return ( 
@@ -41,7 +41,7 @@ const LoginScreen = () => {
             <BackgroundImage src="public\background.png" />
         <ContainerLogin>
             <LimitedContainer>
-                <LogoImage src="public\logo.png" />
+                <SVGLogo />
                 <TitleLogin level={2}> LOGIN </TitleLogin>
                 <Input title="USUÁRIO" margin="32px 0px 0px" onChange={handleEmail} value={email} />
                 <Input type="password" title="SENHA" margin="32px 0px 0px" onChange={handlePassword} value={password} />
