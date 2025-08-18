@@ -1,22 +1,38 @@
+import axios from 'axios';
 import { useState } from "react";
 import Button from "../../../shared/buttons/button/button";
 import Input from "../../../shared/inputs/input/input";
 import { BackgroundImage, ContainerLogin, ContainerLoginScreen, LimitedContainer, LogoImage, TitleLogin } from "../styleds/loginScreen.style";
 
 const LoginScreen = () => {
-    const [username, setUsername] = useState('');
+    const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
 
-    const handleUsername = (event: React.ChangeEvent<HTMLInputElement>) => {
-        setUsername(event.target.value);
+    const handleEmail = (event: React.ChangeEvent<HTMLInputElement>) => {
+        setEmail(event.target.value);
     }
 
     const handlePassword = (event: React.ChangeEvent<HTMLInputElement>) => {
         setPassword(event.target.value);
     }
 
-    const handleLogin = () => {
-        alert(`username: ${username}, password: ${password}`)
+    const handleLogin = async () => {
+        const returnObject = await axios({
+            method: "post",
+            url: "http://localhost:8080/auth",
+            data: {
+                email: email,
+                password: password,
+            },
+        })
+        .then((result) => {
+            return result;
+        })
+        .catch(() => {
+            alert('Usuário ou Senha inválida')
+        })
+
+        alert(`Login efetuado com sucesso`)
     }
 
     return ( 
@@ -27,7 +43,7 @@ const LoginScreen = () => {
             <LimitedContainer>
                 <LogoImage src="public\logo.png" />
                 <TitleLogin level={2}> LOGIN </TitleLogin>
-                <Input title="USUÁRIO" margin="32px 0px 0px" onChange={handleUsername} value={username} />
+                <Input title="USUÁRIO" margin="32px 0px 0px" onChange={handleEmail} value={email} />
                 <Input type="password" title="SENHA" margin="32px 0px 0px" onChange={handlePassword} value={password} />
                 <Button type="primary" margin="64px 0px 16px 0px" onClick={handleLogin} >ENTRAR</Button>
             </LimitedContainer>
