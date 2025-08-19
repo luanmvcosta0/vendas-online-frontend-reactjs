@@ -12,7 +12,9 @@ const mainRoutes: RouteObject[] = [
   },
 ];
 
-const router = createBrowserRouter([...mainRoutes, ...loginRoutes]);
+const router = createBrowserRouter([
+  ...loginRoutes,
+]);
 
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
