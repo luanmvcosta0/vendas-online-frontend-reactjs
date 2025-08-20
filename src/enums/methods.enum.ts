@@ -5,4 +5,4 @@ export const MethodsEnum = {
     DELETE: 'DELETE',
     PATCH: 'PATCH',
     PUT: 'PUT',
-} as const;
+}
