@@ -5,6 +5,7 @@ import Input from "../../../shared/components/inputs/input/input";
 import { useGlobalContext } from "../../../shared/hooks/useGlobalContex";
 import useRequests from '../../../shared/hooks/useRequests';
 import { BackgroundImage, ContainerLogin, ContainerLoginScreen, LimitedContainer, TitleLogin } from "../styleds/loginScreen.style";
+import type { UserType } from "../types/UserType";
 
 const LoginScreen = () => {
     const { accessToken, setAccessToken } = useGlobalContext();
@@ -20,12 +21,14 @@ const LoginScreen = () => {
         setPassword(event.target.value);
     }
 
-    const handleLogin = () => {
-        setAccessToken('novo token');  
-        postRequest('http://localhost:8080/auth', {
+    const handleLogin = async () => {
+        
+        const user = await postRequest<UserType>('http://localhost:8080/auth', {
             email: email,
             password: password,
-        })
+        });
+
+        setAccessToken(user?.accessToken || '');  
     };
 
     return ( 
