@@ -4,12 +4,11 @@ import SVGLogo from '../../../shared/components/icons/SVGLogo';
 import Input from "../../../shared/components/inputs/input/input";
 import useRequests from '../../../shared/hooks/useRequests';
 import { BackgroundImage, ContainerLogin, ContainerLoginScreen, LimitedContainer, TitleLogin } from "../styleds/loginScreen.style";
-import type { UserType } from "../types/UserType";
 
 const LoginScreen = () => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
-    const { postRequest, loading } = useRequests();
+    const { authRequest, loading } = useRequests();
 
     const handleEmail = (event: React.ChangeEvent<HTMLInputElement>) => {
         setEmail(event.target.value);
@@ -21,7 +20,7 @@ const LoginScreen = () => {
 
     const handleLogin = () => {
         
-        postRequest<UserType>('http://localhost:8080/auth', {
+        authRequest({
             email: email,
             password: password,
         });
