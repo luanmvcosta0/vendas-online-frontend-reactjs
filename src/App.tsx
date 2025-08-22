@@ -1,13 +1,13 @@
-import { notification } from 'antd'; // Import do antd normal
-import { createBrowserRouter, RouterProvider } from "react-router-dom";
-import './index.css';
+import { createBrowserRouter, RouterProvider } from 'react-router-dom';
+import { firstScreenRoutes } from './modules/firstScreen/routes';
 import { loginRoutes } from './modules/login/routes';
+import { productsScreens } from './modules/product/routes';
+import { useNotification } from './shared/hooks/useNotification';
 
-const router = createBrowserRouter([...loginRoutes]);
+const router = createBrowserRouter([...loginRoutes, ...firstScreenRoutes, ...productsScreens  ]);
 
 function App() {
-  const [api, contextHolder] = notification.useNotification(); // Hook correto
-
+  const { contextHolder } = useNotification();
   return (
     <>
       {contextHolder}
