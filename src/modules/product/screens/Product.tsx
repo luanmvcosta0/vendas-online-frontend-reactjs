@@ -1,24 +1,32 @@
 import type { ColumnsType } from "antd/es/table";
 import { useEffect } from "react";
 import { MethodsEnum } from "../../../enums/methods.enum";
-import Table from "../../../shared/components/table/table";
+import Table from "../../../shared/components/table/Table";
 import { URL_PRODUCT } from "../../../shared/constatns/urls";
 import { useDataContext } from "../../../shared/hooks/useDataContex";
 import useRequests from "../../../shared/hooks/useRequests";
-import type { ProductType } from "../types/ProductType";
+import type { ProductType } from "../../../shared/types/ProductType";
+import CategoryColumn from "../components/CategoryColumn";
+import TooltipImage from "../components/ToolTipImagem";
 
 const columns: ColumnsType<ProductType> = [
     {
         title: 'Id',
         dataIndex: 'id',
         key: 'id',
-        render: (text) => <a>{text}</a>,
+        render: (_, product) => <TooltipImage product={product}/>,
     },
     {
         title: 'Nome',
         dataIndex: 'name',
         key: 'name',
         render: (text) => <a>{text}</a>,
+    },
+    {
+        title: 'Category',
+        dataIndex: 'category',
+        key: 'category',
+        render: (_, product) => <CategoryColumn category={product.category}/>,
     },
     {
         title: 'Preço',
