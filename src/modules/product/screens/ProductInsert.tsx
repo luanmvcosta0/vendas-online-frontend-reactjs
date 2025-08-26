@@ -1,23 +1,61 @@
+import { Select } from "antd";
+import { useEffect } from "react";
+import { MethodsEnum } from "../../../enums/methods.enum";
+import Button from "../../../shared/components/buttons/button/button";
+import Input from "../../../shared/components/inputs/input/input";
 import Screen from "../../../shared/components/screen/Screen";
+import { URL_CATEGORY } from "../../../shared/constatns/urls";
+import { useDataContext } from "../../../shared/hooks/useDataContex";
+import useRequests from "../../../shared/hooks/useRequests";
 import { ProductRoutesConst } from "../routes";
+import { LimitedContainer } from "../styles/productInsert.style";
 
 const ProductInsert = () => {
+    const { categories, setCategories } = useDataContext();
+    const { request } = useRequests();
+
+    console.log('categories', categories);
+
+    useEffect(() => {
+        if (categories.length === 0) {
+        request(URL_CATEGORY, MethodsEnum.GET, setCategories);
+        }
+    }, []);
+
+    const handleChange = (value: string) => {
+        console.log(`selected ${value}`);
+    };
+
     return (
         <Screen
-            listBreadcrumb={[
+        listBreadcrumb={[
             {
-                name: 'HOME',
+            name: 'HOME',
             },
             {
-                name: 'PRODUTOS',
-                navigateTo: ProductRoutesConst.PRODUCT,
+            name: 'PRODUTOS',
+            navigateTo: ProductRoutesConst.PRODUCT,
             },
             {
-                name: 'INSERIR PRODUTO',
+            name: 'INSERIR PRODUTO',
             },
-            ]}
+        ]}
         >
-            Inserir produto
+        <LimitedContainer>
+            <Input margin="0px 0px 16px 0px" title="Nome" placeholder="Nome" />
+            <Input margin="0px 0px 16px 0px" title="Url imagem" placeholder="Url imagem" />
+            <Input margin="0px 0px 16px 0px" title="Preço" placeholder="Preço" />
+            <Select
+            defaultValue="lucy"
+            style={{ width: '100%' }}
+            onChange={handleChange}
+            options={categories.map((category) => ({
+                value: `${category.id}`,
+                label: `${category.name}`,
+            }))}
+            />
+            <Button type="primary">Inserir produto</Button>
+        </LimitedContainer>
         </Screen>
     );
 };
