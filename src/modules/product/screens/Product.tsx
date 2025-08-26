@@ -7,7 +7,7 @@ import { useDataContext } from "../../../shared/hooks/useDataContex";
 import useRequests from "../../../shared/hooks/useRequests";
 import type { ProductType } from "../../../shared/types/ProductType";
 import CategoryColumn from "../components/CategoryColumn";
-import TooltipImage from "../components/ToolTipImagem";
+import TooltipImage from "../components/TooltipImagem";
 
 const columns: ColumnsType<ProductType> = [
     {
